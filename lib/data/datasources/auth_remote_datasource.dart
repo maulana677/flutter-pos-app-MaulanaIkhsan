@@ -5,7 +5,9 @@ import 'package:http/http.dart' as http;
 
 class AuthRemoteDatasource {
   Future<Either<String, AuthResponseModel>> login(
-      String email, String password) async {
+    String email,
+    String password,
+  ) async {
     final response = await http.post(
       Uri.parse('${Variables.baseUrl}/api/login'),
       body: {
