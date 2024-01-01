@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_pos_app/core/assets/assets.gen.dart';
-import 'package:flutter_pos_app/data/models/response/auth_response_model.dart';
+import 'package:flutter_pos_app/data/datasources/auth_local_datasource.dart';
 import 'package:flutter_pos_app/presentation/auth/bloc/login/login_bloc.dart';
-import 'package:flutter_pos_app/presentation/home/pages/dashboard_pages.dart';
 
+import '../../../core/assets/assets.gen.dart';
 import '../../../core/components/buttons.dart';
 import '../../../core/components/custom_text_field.dart';
 import '../../../core/components/spaces.dart';
+import '../../home/pages/dashboard_pages.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -79,7 +79,8 @@ class _LoginPageState extends State<LoginPage> {
             listener: (context, state) {
               state.maybeWhen(
                 orElse: () {},
-                success: (authResponModel) {
+                success: (authResponseModel) {
+                  AuthLocalDatasource().saveAuthData(authResponseModel);
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(

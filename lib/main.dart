@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_pos_app/core/constants/colors.dart';
+import 'package:flutter_pos_app/core/assets/assets.gen.dart';
+import 'package:flutter_pos_app/data/datasources/auth_local_datasource.dart';
 import 'package:flutter_pos_app/data/datasources/auth_remote_datasource.dart';
+import 'package:flutter_pos_app/data/datasources/product_remote_datasource.dart';
 import 'package:flutter_pos_app/presentation/auth/pages/login_pages.dart';
+import 'package:flutter_pos_app/presentation/home/bloc/product/product_bloc.dart';
+
+import 'package:flutter_pos_app/presentation/home/pages/dashboard_pages.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'core/constants/colors.dart';
 import 'presentation/auth/bloc/login/login_bloc.dart';
+import 'presentation/home/bloc/logout/logout_bloc.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,8 +24,19 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => LoginBloc(AuthRemoteDatasource()),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => LoginBloc(AuthRemoteDatasource()),
+        ),
+        BlocProvider(
+          create: (context) => LogoutBloc(AuthRemoteDatasource()),
+        ),
+        BlocProvider(
+          create: (context) => ProductBloc(ProductRemoteDatasource())
+            ..add(const ProductEvent.fetchLocal()),
+        ),
+      ],
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
@@ -40,7 +58,15 @@ class MyApp extends StatelessWidget {
             ),
           ),
         ),
-        home: const LoginPage(),
+        home: FutureBuilder<bool>(
+            future: AuthLocalDatasource().isAuth(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData && snapshot.data == true) {
+                return const DashboardPage();
+              } else {
+                return const LoginPage();
+              }
+            }),
       ),
     );
   }
