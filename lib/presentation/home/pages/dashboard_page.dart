@@ -7,6 +7,7 @@ import 'package:flutter_pos_app/presentation/setting/pages/setting_page.dart';
 
 import '../../../core/assets/assets.gen.dart';
 import '../../../core/constants/colors.dart';
+
 import '../widgets/nav_item.dart';
 
 class DashboardPage extends StatefulWidget {

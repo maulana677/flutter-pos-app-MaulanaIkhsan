@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_pos_app/core/constants/colors.dart';
+import 'package:flutter_pos_app/core/extensions/build_context_ext.dart';
 import 'package:flutter_pos_app/data/datasources/auth_local_datasource.dart';
 import 'package:flutter_pos_app/data/datasources/product_local_datasource.dart';
-import 'package:flutter_pos_app/presentation/auth/pages/login_pages.dart';
+import 'package:flutter_pos_app/presentation/auth/pages/login_page.dart';
 import 'package:flutter_pos_app/presentation/home/bloc/product/product_bloc.dart';
 
+import '../../../core/assets/assets.gen.dart';
+import '../../../core/components/menu_button.dart';
+import '../../../core/components/spaces.dart';
 import '../../home/bloc/logout/logout_bloc.dart';
+import 'manage_product_page.dart';
 
 class SettingPage extends StatefulWidget {
   const SettingPage({super.key});
@@ -25,6 +30,25 @@ class _SettingPageState extends State<SettingPage> {
         body: ListView(
           padding: const EdgeInsets.all(16.0),
           children: [
+            Row(
+              children: [
+                MenuButton(
+                  iconPath: Assets.images.manageProduct.path,
+                  label: 'Kelola Produk',
+                  onPressed: () => context.push(const ManageProductPage()),
+                  isImage: true,
+                ),
+                const SpaceWidth(15.0),
+                MenuButton(
+                  iconPath: Assets.images.managePrinter.path,
+                  label: 'Kelola Printer',
+                  onPressed:
+                      () {}, //=> context.push(const ManageProductPage()),
+                  isImage: true,
+                ),
+              ],
+            ),
+            const SpaceHeight(60),
             BlocConsumer<ProductBloc, ProductState>(
               listener: (context, state) {
                 state.maybeMap(

@@ -22,14 +22,17 @@ class ProductLocalDatasource {
   }
 
   Future<void> _createDB(Database db, int version) async {
-    await db.execute('''
+    await db.execute(
+        '''
       CREATE TABLE $tableProducts (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT,
         price INTEGER,
         stock INTEGER,
         image TEXT,
-        category TEXT
+        category TEXT,
+        is_best_seller INTEGER,
+        is_sync INTEGER DEFAULT 0
       )
     ''');
   }
@@ -37,7 +40,7 @@ class ProductLocalDatasource {
   Future<Database> get database async {
     if (_database != null) return _database!;
 
-    _database = await _initDB('pos1.db');
+    _database = await _initDB('pos4.db');
     return _database!;
   }
 
@@ -53,6 +56,13 @@ class ProductLocalDatasource {
     for (var product in products) {
       await db.insert(tableProducts, product.toMap());
     }
+  }
+
+  //isert data product
+  Future<Product> insertProduct(Product product) async {
+    final db = await instance.database;
+    int id = await db.insert(tableProducts, product.toMap());
+    return product.copyWith(id: id);
   }
 
   //get all data product

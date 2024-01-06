@@ -4,10 +4,9 @@ import 'package:flutter_pos_app/core/assets/assets.gen.dart';
 import 'package:flutter_pos_app/data/datasources/auth_local_datasource.dart';
 import 'package:flutter_pos_app/data/datasources/auth_remote_datasource.dart';
 import 'package:flutter_pos_app/data/datasources/product_remote_datasource.dart';
-import 'package:flutter_pos_app/presentation/auth/pages/login_pages.dart';
+import 'package:flutter_pos_app/presentation/auth/pages/login_page.dart';
 import 'package:flutter_pos_app/presentation/home/bloc/product/product_bloc.dart';
-
-import 'package:flutter_pos_app/presentation/home/pages/dashboard_pages.dart';
+import 'package:flutter_pos_app/presentation/home/pages/dashboard_page.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'core/constants/colors.dart';
