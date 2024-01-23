@@ -22,8 +22,7 @@ class ProductLocalDatasource {
   }
 
   Future<void> _createDB(Database db, int version) async {
-    await db.execute(
-        '''
+    await db.execute('''
       CREATE TABLE $tableProducts (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT,
@@ -40,7 +39,7 @@ class ProductLocalDatasource {
   Future<Database> get database async {
     if (_database != null) return _database!;
 
-    _database = await _initDB('pos4.db');
+    _database = await _initDB('pos6.db');
     return _database!;
   }
 

@@ -28,7 +28,7 @@ class _AddProductPageState extends State<AddProductPage> {
 
   String category = 'food';
 
-  File? imageFile;
+  XFile? imageFile;
 
   bool isBestSeller = false;
 
@@ -151,11 +151,10 @@ class _AddProductPageState extends State<AddProductPage> {
                         stock: stock,
                         category: category,
                         isBestSeller: isBestSeller,
-                        image: imageFile!.absolute.path,
-                        isSync: false);
+                        image: imageFile!.path);
                     context
                         .read<ProductBloc>()
-                        .add(ProductEvent.addProduct(product));
+                        .add(ProductEvent.addProduct(product, imageFile!));
                   },
                   label: 'Simpan',
                 );

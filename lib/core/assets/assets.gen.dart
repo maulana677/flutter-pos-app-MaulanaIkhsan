@@ -111,6 +111,9 @@ class $AssetsImagesGen {
   /// File path: assets/images/f8.jpeg
   AssetGenImage get f8 => const AssetGenImage('assets/images/f8.jpeg');
 
+  /// File path: assets/images/logo a.png
+  AssetGenImage get logoA => const AssetGenImage('assets/images/logo a.png');
+
   /// File path: assets/images/logo.png
   AssetGenImage get logo => const AssetGenImage('assets/images/logo.png');
 
@@ -136,6 +139,7 @@ class $AssetsImagesGen {
         f6,
         f7,
         f8,
+        logoA,
         logo,
         managePrinter,
         managePrinterx,

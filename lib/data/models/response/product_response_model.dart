@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:meta/meta.dart';
 
 class ProductResponseModel {
@@ -42,7 +43,6 @@ class Product {
   final String category;
   final String image;
   final bool isBestSeller;
-  final bool isSync;
   final DateTime? createdAt;
   final DateTime? updatedAt;
 
@@ -55,7 +55,6 @@ class Product {
     required this.category,
     required this.image,
     this.isBestSeller = false,
-    this.isSync = true,
     this.createdAt,
     this.updatedAt,
   });
@@ -73,11 +72,6 @@ class Product {
         category: json["category"],
         image: json["image"] ?? '',
         isBestSeller: json["is_best_seller"] == 1 ? true : false,
-        isSync: json["is_sync"] == null
-            ? true
-            : json["is_sync"] == 1
-                ? true
-                : false,
         // createdAt: DateTime.parse(json["created_at"]),
         // updatedAt: DateTime.parse(json["updated_at"]),
       );
@@ -100,7 +94,6 @@ class Product {
     String? category,
     String? image,
     bool? isBestSeller,
-    bool? isSync,
     DateTime? createdAt,
     DateTime? updatedAt,
   }) {
@@ -113,9 +106,39 @@ class Product {
       category: category ?? this.category,
       image: image ?? this.image,
       isBestSeller: isBestSeller ?? this.isBestSeller,
-      isSync: isSync ?? this.isSync,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
     );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is Product &&
+        other.id == id &&
+        other.name == name &&
+        other.description == description &&
+        other.price == price &&
+        other.stock == stock &&
+        other.category == category &&
+        other.image == image &&
+        other.isBestSeller == isBestSeller &&
+        other.createdAt == createdAt &&
+        other.updatedAt == updatedAt;
+  }
+
+  @override
+  int get hashCode {
+    return id.hashCode ^
+        name.hashCode ^
+        description.hashCode ^
+        price.hashCode ^
+        stock.hashCode ^
+        category.hashCode ^
+        image.hashCode ^
+        isBestSeller.hashCode ^
+        createdAt.hashCode ^
+        updatedAt.hashCode;
   }
 }
